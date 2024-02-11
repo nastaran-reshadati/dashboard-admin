@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { httpService } from "../../core/http-service";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const RegisterForm = () => {
   const {
@@ -16,7 +17,7 @@ const RegisterForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-
+  const { t } = useTranslation();
   const submitForm = useSubmit();
   const navigation = useNavigation();
   const isSuccessAction = useActionData();
@@ -123,7 +124,8 @@ const RegisterForm = () => {
                 disabled={isSubmitting}
                 className="btn btn-lg btn-primary"
               >
-                {isSubmitting ? " در حال ارسال درخواست" : "ثبت نام"}
+                {/* {isSubmitting ? " در حال ارسال درخواست" : "ثبت نام"} */}
+                {t("register.register")}
               </button>
             </div>
             {isSuccessAction && (
