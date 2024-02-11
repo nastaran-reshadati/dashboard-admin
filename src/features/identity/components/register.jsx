@@ -2,6 +2,7 @@ import React from "react";
 import RegisterForm from "../../../components/identityForms/register";
 import IdentityLayouts from "../../../layouts/identityLayouts";
 import { Link } from "react-router-dom";
+import { httpService } from "../../../core/http-service";
 
 const Register = () => {
   return (

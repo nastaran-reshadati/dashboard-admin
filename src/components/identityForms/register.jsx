@@ -1,4 +1,13 @@
 import { useForm } from "react-hook-form";
+import {
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useRouteError,
+  useSubmit,
+} from "react-router-dom";
+import { httpService } from "../../core/http-service";
+import { useEffect } from "react";
 
 const RegisterForm = () => {
   const {
@@ -8,9 +17,28 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
 
+  const submitForm = useSubmit();
+  const navigation = useNavigation();
+  const isSuccessAction = useActionData();
+  const navigate = useNavigate();
+
+  // const { error, isError, message } = useRouteError();
+  const routeError = useRouteError();
+  console.log("routeError : ", routeError?.response.data);
+
+  const isSubmitting = navigation.state !== "idle";
   const onSubmit = (data) => {
-    console.log(data);
+    const { confirmPassword, ...userDatas } = data;
+    submitForm(userDatas, { method: "post" });
   };
+
+  useEffect(() => {
+    if (isSuccessAction) {
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
+  }, [isSuccessAction]);
 
   return (
     <div className="card">
@@ -90,11 +118,26 @@ const RegisterForm = () => {
                 )}
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-lg btn-primary">
-                {" "}
-                ثبت نام
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-lg btn-primary"
+              >
+                {isSubmitting ? " در حال ارسال درخواست" : "ثبت نام"}
               </button>
             </div>
+            {isSuccessAction && (
+              <div className="alert alert-success text-success p-2 mt-3">
+                عملیات با موفقیت انجام شد.به صفحه ی ورود منتقل می شوید...
+              </div>
+            )}
+            {routeError && (
+              <div className="alert alert-danger text-danger p-2 mt-3">
+                {routeError.response?.data.map((error) => (
+                  <p className="mb-0">{error.description}</p>
+                ))}
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -103,3 +146,12 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+
+export async function registerAction({ request }) {
+  let formData = await request.formData();
+  console.log("form data get", formData.get("password"));
+  const data = Object.fromEntries(formData);
+  const response = await httpService.post("/Users", data);
+  console.log("response", response);
+  return response.status === 200;
+}
