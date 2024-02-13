@@ -1,9 +1,26 @@
 import usFlag from "@assets/images/us.png";
 import faFlag from "@assets/images/fa.png";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ChangeLanguage = () => {
   const [show, setShow] = useState(false);
+
+  const ref = useRef();
+  useEffect(() => {
+    document.addEventListener("mousedown", checkIsClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", checkIsClickOutside);
+    };
+  }, [show]);
+
+  const checkIsClickOutside = (e) => {
+    console.log("e", e.target);
+    console.log("ref", ref.current);
+    if (show && ref.current && !ref.current.contains(e.target)) {
+      setShow(false);
+    }
+  };
 
   return (
     <div className="dropdown">
@@ -11,6 +28,7 @@ const ChangeLanguage = () => {
         <img src={usFlag} alt="english" />
       </a>
       <div
+        ref={ref}
         className={`dropdown-menu dropdown-menu-end ${
           show ? "show" : undefined
         }`}
