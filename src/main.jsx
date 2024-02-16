@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+import { AppContext, AppProvider } from "./context/app-context.jsx";
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <AppProvider>
+    <App />
+  </AppProvider>
+);

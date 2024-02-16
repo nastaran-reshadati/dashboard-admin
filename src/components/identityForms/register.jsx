@@ -47,7 +47,7 @@ const RegisterForm = () => {
         <div className="m-sm-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
-              <label className="form-label">موبایل</label>
+              <label className="form-label">{t("register.mobile")}</label>
               <input
                 type="password"
                 {...register("mobile", {
@@ -61,7 +61,7 @@ const RegisterForm = () => {
               />
               {errors.mobile && errors.mobile.type == "required" && (
                 <p className="text-danger small fw-bolder mt-1">
-                  {errors.mobile?.message}
+                  {t("register.validation.mobileRequired")}{" "}
                 </p>
               )}
               {errors.mobile &&
@@ -73,7 +73,7 @@ const RegisterForm = () => {
                 )}
             </div>
             <div className="mb-3">
-              <label className="form-label">رمز عبور</label>
+              <label className="form-label"> {t("register.password")}</label>
               <input
                 type="password"
                 {...register("password", {
@@ -85,19 +85,21 @@ const RegisterForm = () => {
               />
               {errors.password && errors.password.type === "required" && (
                 <p className="text-danger small fw-bolder mt-1">
-                  {errors.password?.message}{" "}
+                  {t("register.validation.password")}{" "}
                 </p>
               )}
             </div>
             <div className="mb-3">
-              <label className="form-label">تکرار رمز عبور</label>
+              <label className="form-label">
+                {t("register.repeatPassword")}
+              </label>
               <input
                 type="password"
                 {...register("confirmPassword", {
                   required: "تکرار رمز عبور الزامی است",
                   validate: (value) => {
                     if (watch("password") !== value) {
-                      return "رمز عبور و تکرار رمز عبور باید یکسان باشند";
+                      return t("register.validation.notMatching");
                     }
                   },
                 })}
@@ -108,7 +110,7 @@ const RegisterForm = () => {
               {errors.confirmPassword &&
                 errors.confirmPassword.type === "required" && (
                   <p className="text-danger small fw-bolder mt-1">
-                    {errors.confirmPassword?.message}{" "}
+                    {t("register.validation.repeatPassword")}{" "}
                   </p>
                 )}
               {errors.confirmPassword &&

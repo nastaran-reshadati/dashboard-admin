@@ -18,15 +18,11 @@ const router = createBrowserRouter([
         action: registerAction,
         errorElement: <Register />,
       },
+      {
+        path: "/",
+        element: <Login />,
+      },
     ],
-  },
-  {
-    path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-      </div>
-    ),
   },
 ]);
 

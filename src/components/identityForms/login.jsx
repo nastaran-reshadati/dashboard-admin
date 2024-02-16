@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 const LoginForm = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="card">
       <div className="card-body">
@@ -21,7 +25,7 @@ const LoginForm = () => {
             <div className="text-center">
               <button type="submit" className="btn btn-lg btn-primary">
                 {" "}
-                وارد شوید
+                {t("login.signin")}
               </button>
             </div>
           </form>

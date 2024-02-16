@@ -1,11 +1,15 @@
 import usFlag from "@assets/images/us.png";
 import faFlag from "@assets/images/fa.png";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppContext } from "../context/app-context";
 
 const ChangeLanguage = () => {
   const [show, setShow] = useState(false);
-
   const ref = useRef();
+  const { language, changeLang } = useContext(AppContext);
+
+  console.log("language", language);
+
   useEffect(() => {
     document.addEventListener("mousedown", checkIsClickOutside);
 
@@ -15,8 +19,8 @@ const ChangeLanguage = () => {
   }, [show]);
 
   const checkIsClickOutside = (e) => {
-    console.log("e", e.target);
-    console.log("ref", ref.current);
+    // console.log("e", e.target);
+    // console.log("ref", ref.current);
     if (show && ref.current && !ref.current.contains(e.target)) {
       setShow(false);
     }
@@ -25,7 +29,7 @@ const ChangeLanguage = () => {
   return (
     <div className="dropdown">
       <a className="nav-flag dropdown-toggle" onClick={() => setShow(!show)}>
-        <img src={usFlag} alt="english" />
+        <img src={language === "fa" ? faFlag : usFlag} alt="english" />
       </a>
       <div
         ref={ref}
@@ -33,11 +37,19 @@ const ChangeLanguage = () => {
           show ? "show" : undefined
         }`}
       >
-        <a className="dropdown-item fw-bolder" style={{ textAlign: "right" }}>
+        <a
+          onClick={() => changeLang("fa")}
+          className="dropdown-item fw-bolder d-flex items-center gap-2"
+          style={{ textAlign: language === "fa" ? "right" : "left" }}
+        >
           <img className="ms-2" src={faFlag} width="20" alt="persian" />
           <span className="align-middle">فارسی</span>
         </a>
-        <a className="dropdown-item fw-bolder" style={{ textAlign: "right" }}>
+        <a
+          onClick={() => changeLang("en")}
+          className="dropdown-item fw-bolder d-flex items-center gap-2"
+          style={{ textAlign: language === "fa" ? "right" : "left" }}
+        >
           <img className="ms-2" src={usFlag} width="20" alt="english" />
           <span className="align-middle">English</span>
         </a>

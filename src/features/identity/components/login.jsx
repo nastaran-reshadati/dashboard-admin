@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../../components/identityForms/login";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="text-center mt-4">
         <h1>👋</h1>
-        <p>جهت ورود لطفا از موبایل و رمز عبور خود استفاده کنید</p>
+        <p> {t("login.introMessage")} </p>
         <p>
-          قبلا ثبت نام نکرده اید ؟
+          {t("login.areNotRegistered")}
+
           <Link to="/register" className="me-2">
-            ثبت نام کنید
+            {t("login.register")}
           </Link>
         </p>
       </div>
