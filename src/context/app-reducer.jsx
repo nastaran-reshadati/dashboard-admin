@@ -5,6 +5,8 @@ const appReducer = (state, action) => {
 
     default:
       return state;
+    case "CHANGE_THEME":
+      return { ...state, theme: action.payload };
   }
 };
 
