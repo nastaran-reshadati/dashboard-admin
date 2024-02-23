@@ -3,6 +3,7 @@ import Login from "./features/identity/components/login";
 import Register from "./features/identity/components/register";
 import IdentityLayouts from "./layouts/identityLayouts";
 import { registerAction } from "./components/identityForms/register";
+import { loginAction } from "./components/identityForms/login";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        action: loginAction,
       },
       {
         path: "register",
@@ -18,10 +20,11 @@ const router = createBrowserRouter([
         action: registerAction,
         errorElement: <Register />,
       },
-      {
-        path: "/",
-        element: <Login />,
-      },
+      // {
+      //   path: "/",
+      //   element: <Login />,
+      //   action: loginAction,
+      // },
     ],
   },
 ]);

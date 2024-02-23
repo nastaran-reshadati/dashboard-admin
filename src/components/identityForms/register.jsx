@@ -152,6 +152,7 @@ const RegisterForm = () => {
 export default RegisterForm;
 
 export async function registerAction({ request }) {
+  // console.log(request);
   let formData = await request.formData();
   console.log("form data get", formData.get("password"));
   const data = Object.fromEntries(formData);
