@@ -6,7 +6,7 @@ import {
   useRouteError,
   useSubmit,
 } from "react-router-dom";
-import { httpService } from "../../core/http-service";
+import { httpService } from "@core/http-service";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -138,7 +138,9 @@ const RegisterForm = () => {
             {routeError && (
               <div className="alert alert-danger text-danger p-2 mt-3">
                 {routeError.response?.data.map((error) => (
-                  <p className="mb-0">{error.description}</p>
+                  <p className="mb-0">
+                    {t(`register.validation.${error.code}`)}
+                  </p>
                 ))}
               </div>
             )}

@@ -4,8 +4,20 @@ import Register from "./features/identity/components/register";
 import IdentityLayouts from "./layouts/identityLayouts";
 import { registerAction } from "./components/identityForms/register";
 import { loginAction } from "./components/identityForms/login";
+import MainLayout from "./layouts/main-layout";
+import Courses from "./pages/Courses";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        element: <Courses />,
+        index: true,
+      },
+    ],
+  },
   {
     element: <IdentityLayouts />,
     children: [
@@ -13,6 +25,7 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
         action: loginAction,
+        errorElement: <Login />,
       },
       {
         path: "register",
@@ -20,11 +33,6 @@ const router = createBrowserRouter([
         action: registerAction,
         errorElement: <Register />,
       },
-      // {
-      //   path: "/",
-      //   element: <Login />,
-      //   action: loginAction,
-      // },
     ],
   },
 ]);
