@@ -18,6 +18,10 @@ const ChangeLanguage = () => {
     };
   }, [show]);
 
+  useEffect(() => {
+    setShow(false);
+  }, [language]);
+
   const checkIsClickOutside = (e) => {
     // console.log("e", e.target);
     // console.log("ref", ref.current);
