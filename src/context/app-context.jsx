@@ -1,4 +1,10 @@
-import { createContext, useEffect, useReducer, useTransition } from "react";
+import {
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+  useTransition,
+} from "react";
 import appReducer from "./app-reducer";
 import { useTranslation } from "react-i18next";
 
@@ -7,10 +13,14 @@ const AppContext = createContext();
 const initialState = {
   language: localStorage.getItem("language") || "fa",
   theme: localStorage.getItem("theme") || "light",
+  showSidebar: true,
 };
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+
+  // const [collapseSidebar, setCollapseSidebar] = useState(false);
+
   const { i18n } = useTranslation();
 
   const changeLang = (language) => {
@@ -18,14 +28,20 @@ const AppProvider = ({ children }) => {
   };
 
   const changeTheme = (theme) => {
-    console.log(theme);
     dispatch({ type: "CHANGE_THEME", payload: theme });
+  };
+
+  const toggleSidebar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" });
+    console.log(state.showSidebar);
   };
 
   useEffect(() => {
     i18n.changeLanguage(state.language);
     localStorage.setItem("language", state.language);
     document.body.dataset.direction = state.language === "fa" ? "rtl" : "ltr";
+    document.body.dataset.sidebarPosition =
+      state.language === "fa" ? "right" : "left";
     console.log(document.body.dataset.direction);
   }, [state.language]);
 
@@ -34,7 +50,14 @@ const AppProvider = ({ children }) => {
   }, [state.theme]);
 
   return (
-    <AppContext.Provider value={{ ...state, changeLang, changeTheme }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        changeLang,
+        changeTheme,
+        toggleSidebar,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

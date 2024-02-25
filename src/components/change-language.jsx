@@ -8,8 +8,6 @@ const ChangeLanguage = () => {
   const ref = useRef();
   const { language, changeLang } = useContext(AppContext);
 
-  console.log("language", language);
-
   useEffect(() => {
     document.addEventListener("mousedown", checkIsClickOutside);
 
