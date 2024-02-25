@@ -95,16 +95,17 @@ const LoginForm = () => {
 };
 
 export async function loginAction({ request }) {
-  console.log(request);
   let formData = await request.formData();
   const mobile = formData.get("mobile");
   const password = formData.get("password");
   const data = Object.fromEntries(formData);
   // const response = await httpService.post("/Users/login", { mobile, password });
   const response = await httpService.post("/Users/login", data);
-  if (response.status === "200") {
+  console.log(response.status);
+  if (response.status == "200") {
+    console.log("response : ", response);
     localStorage.setItem("token", response?.data.token);
+    return redirect("/");
   }
-  return redirect("/");
 }
 export default LoginForm;

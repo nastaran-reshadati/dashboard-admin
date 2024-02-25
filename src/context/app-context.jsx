@@ -33,7 +33,6 @@ const AppProvider = ({ children }) => {
 
   const toggleSidebar = () => {
     dispatch({ type: "TOGGLE_SIDEBAR" });
-    console.log(state.showSidebar);
   };
 
   useEffect(() => {
@@ -42,7 +41,6 @@ const AppProvider = ({ children }) => {
     document.body.dataset.direction = state.language === "fa" ? "rtl" : "ltr";
     document.body.dataset.sidebarPosition =
       state.language === "fa" ? "right" : "left";
-    console.log(document.body.dataset.direction);
   }, [state.language]);
 
   useEffect(() => {

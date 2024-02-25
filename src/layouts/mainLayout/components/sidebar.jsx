@@ -7,7 +7,6 @@ const Sidebar = () => {
   const { t } = useTranslation();
 
   const { showSidebar } = useContext(AppContext);
-  console.log("collapseSidebar sidebar", showSidebar);
 
   return (
     <nav className={`sidebar ${!showSidebar ? "collapsed" : ""}`}>
