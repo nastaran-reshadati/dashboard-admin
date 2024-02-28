@@ -4,7 +4,7 @@ import Register from "./features/identity/components/register";
 import IdentityLayouts from "./layouts/identityLayouts";
 import { registerAction } from "./components/identityForms/register";
 import { loginAction } from "./components/identityForms/login";
-import Courses from "./pages/Courses";
+import Courses, { cousesLoader } from "./pages/Courses";
 import MainLayout from "./layouts/mainLayout/main-layout";
 
 const router = createBrowserRouter([
@@ -15,6 +15,7 @@ const router = createBrowserRouter([
       {
         element: <Courses />,
         index: true,
+        loader: cousesLoader,
       },
     ],
   },
