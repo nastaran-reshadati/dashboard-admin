@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import Course from "./course";
 
-const CourseList = () => {
-  const loadedCourses = useLoaderData();
-  console.log(loadedCourses);
+const CourseList = ({ loadedCourses }) => {
+  // const loadedCourses = useLoaderData();
+  // console.log(loadedCourses);
   return (
     <>
       <div className="row">

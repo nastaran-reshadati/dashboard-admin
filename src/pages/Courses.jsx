@@ -1,7 +1,11 @@
 import { httpInterceptedService } from "@core/http-service";
 import CourseList from "../features/courses/component/course-list";
+import { Await, defer, useLoaderData } from "react-router-dom";
+import CoursesCategories from "./course-categories";
+import { Suspense } from "react";
 
 const Courses = () => {
+  const data = useLoaderData();
   return (
     <div className="row">
       <div className="col-12">
@@ -10,15 +14,30 @@ const Courses = () => {
             افزودن دوره ی جدید
           </a>
         </div>
-        <CourseList />
+        <Suspense fallback={<p> در حال دریافت دیتا ...</p>}>
+          <Await
+            resolve={data.courses}
+            errorElement={<p>Error loading package location!</p>}
+          >
+            {(loadedCourses) => <CourseList loadedCourses={loadedCourses} />}
+          </Await>
+        </Suspense>
+        {/* <CourseList /> */}
       </div>
     </div>
   );
 };
 
 export async function cousesLoader() {
-  const response = await httpInterceptedService.get("/Course/list");
-  return response.data;
+  return defer({
+    courses: loadCourses(),
+  });
+  // const response = await httpInterceptedService.get("/Course/list");
+  // return response.data;
 }
 
+const loadCourses = async () => {
+  const response = await httpInterceptedService.get("/Course/list");
+  return response.data;
+};
 export default Courses;

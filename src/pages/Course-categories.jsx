@@ -1,6 +1,4 @@
-import React from "react";
-
-const coursesCategories = () => {
+const CoursesCategories = () => {
   return (
     <div>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor, velit
@@ -13,4 +11,4 @@ const coursesCategories = () => {
   );
 };
 
-export default coursesCategories;
+export default CoursesCategories;
