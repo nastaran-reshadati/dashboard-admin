@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 const Course = ({
+  id,
   courseLevel,
   title,
   coverImageUrl,
@@ -12,7 +15,7 @@ const Course = ({
         <img src={coverImageUrl} alt="" className="card-img-top" />
         <div className="card-header px-4 pt-4 pb-0">
           <div className="badge bg-primary my-2 fw-bolder">{courseLevel}</div>
-          <h4>{title}</h4>
+          <Link to={`/course-details/${id}`}>{title}</Link>
         </div>
         <div className="card-body px-4 pt-2">
           <p className="text-truncate-3">{description}</p>
